@@ -1,0 +1,579 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+/* --- 1. General Resets and Base Styling --- */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif; /* اختر خطًا مناسبًا للعربية */
+    direction: rtl; /* لضمان عرض النص من اليمين لليسار */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- 2. Main Header Container (الرأس الرئيسي) --- */
+.main-header {
+    background-color: white;
+    border-bottom: 1px solid #fcf8f8;
+    padding: 10px 20px;
+}
+
+.header-content {
+    /* Flexbox Container */
+    display: flex;
+    justify-content: space-between; /* توزيع العناصر على الأطراف */
+    align-items: center; /* محاذاة العناصر عموديًا في المنتصف */
+    max-width: 1200px; /* تحديد أقصى عرض للهيدر */
+    margin: 0 auto; /* توسيط الهيدر في الصفحة */
+    position: relative;
+    
+}
+
+/* --- 3. Logo Styling (تنسيق اللوجو) --- */
+.logo img {
+    height: 100px; /* ارتفاع اللوجو */
+    width: auto;
+}
+
+/* --- 4. Navigation Menu (قائمة التنقل) --- */
+.main-nav-menu {
+    /* في البداية، نخفي القائمة على الشاشات الصغيرة ونتركها تظهر على الكبيرة */
+    display: none !important; /*   (تعديل) إضافة !important لزيادة أولوية الإخفاء */
+    position: absolute; 
+    top: 100%; /* تظهر أسفل الهيدر */
+    left: 0;
+    width: 100%;
+    background-color: white; /* خلفية للقائمة */
+    z-index: 100; /* لضمان ظهورها فوق المحتوى */
+    /* تنسيق الروابط داخل القائمة */
+    flex-direction: column; /* الروابط تحت بعضها */
+    text-align: center;
+}
+.main-nav-menu.is-open {
+  /* 3. الإظهار عند الضغط */
+    display: flex !important; /*   (تعديل) إضافة !important لزيادة أولوية الإظهار */ 
+}   
+
+
+.main-nav-menu .nav-link {
+    color: #333;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 5px;
+    transition: color 0.3s;
+    display: block;
+    border-bottom: 1px solid #f4f4f4; /* 👈 (إضافة) خط فاصل بين الروابط */
+}
+
+.main-nav-menu .nav-link:hover {
+    color: #007bff; /* لون عند التمرير (Hover) */
+}
+
+/* --- 5. Icon Links (أيقونات المرافق - السلة والبحث والحساب) --- */
+.icon-links {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* مسافة بين الأيقونات */
+}
+
+.icon-link {
+    position: relative;
+    font-size: 20px;
+    color: #0a0000;
+}
+
+.cart-count {
+    /* عداد سلة التسوق */
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ff0000;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 6px;
+    line-height: 1;
+}
+
+/* --- 6. Hamburger Menu Button (زر القائمة المنسدلة) --- */
+.hamburger-menu-button {
+    /* يجب أن يظهر زر القائمة على الشاشات الصغيرة فقط */
+    display: block; 
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    padding: 5px;
+}
+
+ 
+ /* --- 7. Media Queries (للتنسيق على الشاشات الكبيرة) --- */
+@media (min-width: 768px) {
+
+    /* 1. إظهار زر الهامبرغر في أقصى اليمين دائماً */
+    .hamburger-menu-button {
+        display: block; /* نلغي الإخفاء */
+        order: 3;      /*  نجعله في أقصى اليمين */
+    }
+    
+    /* 2. الأيقونات في أقصى اليسار */
+    .icon-links {
+        order: 1;      /*  نجعله في أقصى اليسار */
+    }
+
+    /* 3. اللوجو في المنتصف */
+    .logo {
+        order: 2; 
+        flex-grow: 1; 
+        text-align: center; 
+    }
+    
+    /* 4. إجبار القائمة على أن تكون منسدلة ومخفية */
+    .main-nav-menu {
+        display: none !important; /*  أهم سطر: يجبر القائمة على الاختفاء */
+        position: absolute; 
+        top: 100%; 
+        left: 0;
+        width: 100%;
+        background-color: white; 
+        flex-direction: column; 
+        /*  يجب إزالة أي order أو flex-basis هنا */
+    }
+
+    /* ضروري: إعادة تفعيل التوزيع   */
+    .header-content {
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+    }
+
+}
+  
+ /* --- 8. Hero Banner Section (قسم الواجهة) --- */
+
+.hero-banner {
+    /* كل التنسيقات السابقة للمحاذاة تظل كما هي */
+    width: 100%; 
+    min-height: 450px;
+    margin: 0; 
+    padding: 0; 
+    position: relative; /* **مهم**: يسمح لنا بوضع المحتوى فوق الفيديو */
+    overflow: hidden; /* إخفاء أي جزء زائد من الفيديو */
+    
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content:flex-end; 
+    padding-bottom:60px ;
+    padding-top: 60px;
+    text-align: center;
+    color: white;
+ 
+}
+
+/* تنسيق الفيديو ليملأ القسم بالكامل كخلفية */
+.background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* لضمان توسيط الفيديو وتغطيته للقسم بالكامل */
+    transform: translate(-50%, -50%); 
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1; /* يجب أن يكون خلف النص */
+    
+}
+
+/*  تعديل المحتوى ليكون فوق الفيديو  */
+.banner-content {
+    max-width: 700px; 
+    padding: 20px;
+    background-color: rgba(243, 239, 239, 0.4); /* زيادة شفافية الخلفية لزيادة وضوح النص */
+    border-radius: 10px;
+    position: relative; /* **مهم**: لرفعه فوق الفيديو */
+    z-index: 2; /* يجب أن يكون أمام الفيديو */
+    /* ... باقي التنسيقات ... */
+}
+
+.hero-banner h1{
+    font-size: 3.5em; /* زيادة حجم العنوان */
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.hero-banner p {
+    font-size: 1.3em;
+    margin-bottom: 30px;
+}
+.shop-button {
+    display: inline-block;
+    background-color: #ff5733; 
+    color: white;
+    padding: 15px 40px; /* زيادة حجم الزر */
+    border-radius: 50px; /* جعل الزر دائرياً قليلاً */
+    font-weight: bold;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.shop-button:hover {
+    background-color: #c74528;
+    transform: scale(1.05); /* إضافة حركة بسيطة عند التمرير */
+}
+
+/* تعديل الجوال */
+@media (max-width: 600px) {
+    .hero-banner {
+        min-height: 350px; 
+    }
+    .hero-banner h1 {
+        font-size: 2.2em; /* تصغير حجم العنوان على الجوال */
+    }
+    .hero-banner p {
+        font-size: 1em;
+    }
+    .shop-button {
+        padding: 10px 25px;
+    }
+}
+/* --- 9. Product Grid Section (شبكة المنتجات) --- */
+
+.products-grid-container {
+    max-width: 1200px;
+    margin: 40px auto; /* توسيط القسم و إضافة مسافة علوية وسفلية */
+    padding: 0 20px;
+    text-align: center;
+}
+
+.products-grid-container h2 {
+    margin-bottom: 30px;
+    font-size: 2em;
+    color: #333;
+}
+
+.products-grid {
+    display: grid;
+    /* سيتم تقسيم العناصر إلى 3 أعمدة متساوية على الشاشات الكبيرة */
+     grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding-bottom: 20px;
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+}
+
+.product-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.product-card h3 {
+    font-size: 1.3em;
+    color: #0e0d0d;
+    margin: 5px 0 10px;
+}
+.product-card .rating {
+    color: gold; 
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.product-card .price {
+    font-size: 1.1em;
+    color: #2a8da0; /* لون سعر مميز */
+    font-weight: bold;
+    margin: 10px 0 15px;
+}/* تنسيق حاوية السعر */
+.price-container {
+    margin-bottom: 15px;
+}
+
+/* تنسيق السعر القديم (مشطوب) */
+.old-price {
+    font-size: 0.9em;
+    color: #999;
+    text-decoration: line-through; /* هذا هو الذي يجعل الخط مشطوبًا */
+    margin-left: 10px;
+}
+
+
+.product-card .add-to-cart {
+    display: inline-block;
+    background-color: #38b4d8; /* لون الزر */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.product-card .add-to-cart:hover {
+    background-color: #2a8da0;
+}
+ 
+  
+
+/* تقسيمه الصفحه */
+.container{
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* more uses*/
+/* اي زر ف الموقع */
+.btn{
+    display: inline-block;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 15px;;
+}
+
+.btn-secondary{
+    color: #fff;
+    background:  #ff1493;  
+    margin-top: 2rem;
+}
+
+.btn-secondary:hover{
+
+    background-color:  #ffc0c8;
+} 
+ 
+  
+  /* start about*/
+  /* صفحه about بتاعتي كلهه */
+  #about {
+    height: 80vh;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    background:white ;
+
+  }
+  /* صفحه about بتاعه العنوان ووالوصف */
+  #about .title{
+    text-align:center ;/* العتوان والوصف ف المنتصف */
+    margin-bottom: 4rem;
+  }
+/* العنوان*/
+  #about h2{
+    font-size: 40px;
+    background:  white;  
+    color: #ff1493 ;
+    margin-bottom: 20px;
+  }
+/* وصف العنوان*/
+
+   #about .title p{
+    font-size: 14px;
+    color:  #ffc0c8;
+    font-weight: 600;
+   }
+  /* وصف ن*/
+   #about .about-content{
+    display: flex;
+    justify-content: space-between;
+   }
+   #about .about-content img{
+    width: 500x;
+    height: 300px;
+    border-radius: 10px;
+
+   }
+    #about .about-content p {
+    color: #b7b7b7;
+    margin-right: 50px;/*مسافة يمين*/
+    font-weight: 600;/*bold */
+    line-height: 1.6;
+}
+   
+   .about-content a{
+    text-decoration: none;
+   }
+
+/* end about*/
+/*  start gallary*/
+
+#gallary{
+
+background-color: #ffc0c8; 
+padding: 8rem 0 6rem;
+}
+#gallary h3{
+  color:#ff1493;
+  font-size: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+#gallary .img-gallary{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+/* عشان نفصل الصور فقطا*/
+#gallary .img-gallary  img{
+  width: 280px;
+  height: 200px;
+  border-radius: 15px;
+  margin: 20px;/* عشان نفصل الصور عن بعضها*/
+  opacity: 0.8;
+
+
+}
+#gallary .img-gallary  img:hover{
+  opacity: 1;
+}
+
+/*  end gallary*/
+  /* start contact*/
+  .title1 {
+   
+    background: #fff;
+     display: block;        /* علشان ياخد سطر لوحده */
+    padding: 10px 25px;
+    border-radius: 10px;
+    color: #ff1493;
+    margin-bottom: 20px;
+    text-align: center;
+    margin: 0 auto 20px;   /* يخلي العنوان في نص الصفحة */
+}
+
+  
+
+/* الكارد البيضاء */
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    gap: 20px;
+}
+
+/* الجزء الخاص بالفورم */
+.form-box {
+    flex: 1;
+}
+
+/* مربعات الإدخال */
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* مربع الرسالة أطول */
+textarea {
+    height: 120px;
+}
+
+/* زر الإرسال */
+button {
+    background: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+}
+
+/* الجملة الصغيرة تحت الزر */
+.small-note {
+    color: gray;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* الجزء الخاص بالصورة */
+.image-box img {
+    width: 400px;
+    height: auto;
+}
+/* --- 10. Footer Styling (تنسيق تذييل الصفحة) --- */
+
+.main-footer {
+    background-color: #333;
+    color: #f4f4f4;
+    padding: 40px 0 10px;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around; /* توزيع الأعمدة */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    flex-wrap: wrap; /* للسماح للأعمدة بالنزول في سطر جديد على الجوال */
+}
+
+.footer-column {
+    flex: 1; /* للسماح للأعمدة بالتمدد */
+    min-width: 250px; /* ضمان عدم انكماش الأعمدة كثيرًا */
+    margin-bottom: 30px;
+}
+
+.footer-column h3 {
+    color: #ff5733; /* لون مميز للعناوين */
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li a {
+    color: #ccc;
+    display: block;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+.footer-column ul li a:hover {
+    color: #fff;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 10px;
+    border-top: 1px solid #555;
+    font-size: 0.9em;
+    margin-top: 20px;
+}
+
+/* تعديل عرض شبكة المنتجات على شاشات الجوال */
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: 1fr; /* عرض منتج واحد في كل سطر */
+    }
+}
+
+
